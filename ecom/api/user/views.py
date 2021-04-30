@@ -25,7 +25,7 @@ def signin(request):
     password = request.POST['password']
 
     #validation part
-    if not re.match('([\w\.\-_]+)?\w+@[\w-_]+(\.\w+){1,}', username):
+    if not re.match('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$', username):
         return JsonResponse({'error':'Please provide a valid email'})
     
     if len(password) < 5:
@@ -38,7 +38,7 @@ def signin(request):
         user = UserModel.objects.get(email =  username)
         if user.check_password(password):
             # objects.filter() gives the matching queryset(s)
-            usr_dict = user.objects.filter(email = username).values().first()
+            usr_dict = UserModel.objects.filter(email = username).values().first()
             usr_dict.pop('password')
     
             #check if previous session is exist
@@ -60,7 +60,7 @@ def signin(request):
     except UserModel.DoesNotExist:
         return JsonResponse({'error':'Invalid User'})
 
-
+@csrf_exempt
 def signout(request,id):
     UserModel = get_user_model()
     try:

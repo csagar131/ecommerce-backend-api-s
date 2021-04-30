@@ -13,7 +13,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         password = validated_data.pop('password',None)
         instance = self.Meta.model(**validated_data)
         if password is not None:
-            instance.set_password(self, password)
+            instance.set_password(password)
         instance.save()
         return instance
 
