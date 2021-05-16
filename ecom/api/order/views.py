@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAuthenticated
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework import status
+from rest_framework.status import HTTP_201_CREATED 
 
 # Create your views here.
 
@@ -40,7 +40,7 @@ def add_order(request,id,token):
         except UserModel.DoesNotExist:
             return JsonResponse({"error": "User does not exist"})
 
-        order =  Order(user=user,product_names=products,total_product=total_product,amount=amount,transaction_id=transaction_id)
+        order =  Order(user=user,product_names=products,total_product=total_product,total_amount=amount,transaction_id=transaction_id)
         order.save()
         return JsonResponse({'message': "order placed successfully"}, status=HTTP_201_CREATED)
 

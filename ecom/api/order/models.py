@@ -8,10 +8,11 @@ class Order(models.Model):
     product_names = models.CharField(max_length=500)
     total_product = models.IntegerField(default=0)
     transaction_id = models.CharField(max_length=50,default=0)
-    total_amount = models.IntegerField(default=0)
+    total_amount = models.CharField(default=0,max_length=100)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
     
     def __str__(self):

@@ -9,7 +9,9 @@ import braintree
 gateway = braintree.BraintreeGateway(
     braintree.Configuration(
         braintree.Environment.Sandbox,
-        #here comes your api keys
+        merchant_id="qbk7jpbq9s9xj46f",
+        public_key="qg4gzfb95fgm3sk8",
+        private_key="ea3e4e4698c3e53afd4d7060df1d5add"
     )
 )
 
@@ -26,7 +28,7 @@ def validate_user_session(id,token):
 
 
 @csrf_exempt
-def generate_token(id,token):
+def generate_token(request,id,token):
     if not validate_user_session(id, token):
         return JsonResponse({'error': 'Login Required'})
     # pass client_token to your front-end
@@ -44,7 +46,7 @@ def process_payment(request,id,token):
 
     result = gateway.transaction.sale({
         "amount" : amount_from_client,
-        "payment_method_client" : nonce_from_client,
+        "payment_method_nonce" : nonce_from_client,
         "options" : {
             "submit_for_settlement" : True
         }

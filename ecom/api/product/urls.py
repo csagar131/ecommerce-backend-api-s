@@ -6,3 +6,4 @@ router = routers.DefaultRouter()
 router.register('', ProductViewSet)
 
 urlpatterns = router.urls
+

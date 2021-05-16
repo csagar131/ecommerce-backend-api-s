@@ -8,6 +8,8 @@ django = "==3.0.8"
 django-cors-headers = "*"
 djangorestframework = "*"
 pillow = "*"
+django-environ = "*"
+braintree = "*"
 
 [dev-packages]
 pytest = "*"
